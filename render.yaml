@@ -1,0 +1,34 @@
+# Render Blueprint: one web service + one Postgres database.
+# Deploy via Render Dashboard -> New -> Blueprint -> pick this repo -> Apply.
+
+databases:
+  - name: chat-app-db
+    plan: free
+    region: singapore
+    databaseName: chat_app
+    user: chat_app
+
+services:
+  - type: web
+    name: chat-app
+    runtime: python
+    plan: free
+    region: singapore  # must match the database region
+    buildCommand: bash build.sh  # "bash" so it runs even without the executable bit (Windows)
+    # Daphne serves both HTTP and WebSockets. Render provides $PORT.
+    startCommand: daphne -b 0.0.0.0 -p $PORT --proxy-headers config.asgi:application
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chat-app-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      # Optional admin account, created during the build.
+      # sync: false means Render asks you for the value when you apply the Blueprint.
+      - key: DJANGO_SUPERUSER_USERNAME
+        sync: false
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false

@@ -2,3 +2,7 @@ django>=5.0
 channels>=4.0
 daphne>=4.0
 channels-redis>=4.2
+# Deployment (Render)
+whitenoise>=6.6
+dj-database-url>=2.1
+psycopg[binary]>=3.1
