@@ -1,0 +1,122 @@
+/* Simple, clean styles for the seminar chat demo. */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+a { color: #2563eb; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* --- Navbar --- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: #1f2937;
+  color: #f9fafb;
+}
+nav a { color: #f9fafb; }
+nav .brand { font-weight: 700; font-size: 1.1rem; }
+.nav-right { display: flex; align-items: center; gap: 14px; }
+.nav-right form { margin: 0; }
+
+.link-button {
+  background: none;
+  border: 1px solid #6b7280;
+  color: #f9fafb;
+  padding: 4px 10px;
+}
+.link-button:hover { background: #374151; }
+
+/* --- Layout --- */
+main {
+  max-width: 720px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+.card, .chat-box {
+  background: #fff;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+h1 { margin-top: 0; font-size: 1.5rem; }
+h2 { font-size: 1.1rem; margin-top: 24px; }
+
+.muted { color: #6b7280; }
+.error, .errorlist { color: #b91c1c; }
+.errorlist { padding-left: 18px; }
+.helptext { display: block; color: #6b7280; font-size: 0.85rem; }
+
+/* --- Forms --- */
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+input:focus { outline: 2px solid #93c5fd; border-color: #2563eb; }
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+button:hover { background: #1d4ed8; }
+button:disabled { background: #9ca3af; cursor: not-allowed; }
+
+.inline-form, .chat-input-row { display: flex; gap: 8px; }
+.inline-form input, .chat-input-row input { flex: 1; }
+
+.room-list { list-style: none; padding: 0; }
+.room-list li { padding: 8px 0; border-bottom: 1px solid #e5e7eb; }
+
+/* --- Chat room --- */
+#chat-log {
+  height: 400px;
+  overflow-y: auto;          /* scrollable log */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.message {
+  align-self: flex-start;     /* other people's messages on the left */
+  max-width: 75%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #e5e7eb;
+  overflow-wrap: anywhere;
+}
+.message.own {
+  align-self: flex-end;       /* your own messages on the right */
+  background: #2563eb;
+  color: #fff;
+}
+.message .username { font-weight: 600; }
+.message .time { font-size: 0.75rem; opacity: 0.7; }
+
+.status {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #fee2e2;
+  color: #b91c1c;
+}

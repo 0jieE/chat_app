@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}#{{ room_name }} · Chat App{% endblock %}
+{% block content %}
+<div class="chat-box">
+  <h1>Room: {{ room_name }}</h1>
+  <p id="chat-status" class="status" hidden>Disconnected. Refresh the page to reconnect.</p>
+
+  <div id="chat-log">
+    {# History rendered by Django; new messages are appended below by room.js. #}
+    {% for msg in chat_messages %}
+      <div class="message{% if msg.user_id == user.id %} own{% endif %}">
+        <span class="username">{{ msg.user.username }}</span>: {{ msg.content }}
+        <span class="time">· {{ msg.created_at|time:"H:i" }}</span>
+      </div>
+    {% empty %}
+      <p class="muted" id="empty-note">No messages yet. Say hi!</p>
+    {% endfor %}
+  </div>
+
+  <div class="chat-input-row">
+    <input id="chat-input" type="text" autocomplete="off" maxlength="1000"
+           placeholder="Type a message and press Enter" autofocus>
+    <button id="chat-send">Send</button>
+  </div>
+</div>
+
+{# json_script safely hands Python values to JavaScript. #}
+{{ room_name|json_script:"room-name" }}
+{{ user.username|json_script:"username" }}
+<script src="{% static 'chat/js/room.js' %}"></script>
+{% endblock %}

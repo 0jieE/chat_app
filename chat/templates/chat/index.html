@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h1>Chat Rooms</h1>
+
+  {# Create or join: typing an existing name joins it, a new name creates it. #}
+  <form method="post" class="inline-form">
+    {% csrf_token %}
+    <input type="text" name="room_name" placeholder="Room name, e.g. general"
+           maxlength="50" required autofocus>
+    <button type="submit">Create / Join</button>
+  </form>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+
+  <h2>Existing rooms</h2>
+  {% if rooms %}
+    <ul class="room-list">
+      {% for room in rooms %}
+        <li><a href="{% url 'chat:room' room.name %}">#{{ room.name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">No rooms yet. Create the first one above!</p>
+  {% endif %}
+</div>
+{% endblock %}
